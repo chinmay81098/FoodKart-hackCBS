@@ -2,7 +2,7 @@
 """
 Created on Sun Oct 20 02:53:18 2019
 
-@author: Avi
+@author: Chinmay
 """
 
 from flask import Flask,request,jsonify
@@ -36,9 +36,7 @@ def predict():
     prediction['max_days'] = prediction['max_days'].apply(lambda x : x[:-24])
     prediction['days_left']=prediction['days_left'].astype('int')
     prediction['max_days']=prediction['max_days'].astype('int')
-    print(prediction)
     prediction_x = model.predict(prediction).flatten()
-    print(prediction_x)
     return jsonify({'prediction': str(prediction_x)})
     
     

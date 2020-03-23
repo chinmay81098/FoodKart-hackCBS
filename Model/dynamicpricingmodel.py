@@ -1,16 +1,3 @@
-def norm(x):
-    return(x-train_stats['mean']/train_stats['std'])
-def build_model():
-    model=tf.keras.Sequential([
-            tf.keras.layers.Dense(64,activation='relu',input_shape=[len(train_x.keys())]),
-
-            tf.keras.layers.Dense(64,activation='relu'),
-            tf.keras.layers.Dense(1)])
-    optimizer=tf.keras.optimizers.RMSprop(0.001)
-    model.compile(loss='mse',
-                  optimizer=optimizer,
-                  metrics=['mae','mse'])
-    return model
 import tensorflow as tf
 import pandas as pd
 
@@ -27,6 +14,23 @@ train_x,test_x,train_y,test_y=train_test_split(X,Y,test_size=0.2,random_state=2)
 train_stats=train_x.describe()
 train_stats=train_stats.transpose()
 print(train_stats)
+
+def norm(x):
+    return(x-train_stats['mean']/train_stats['std'])
+def build_model():
+    model=tf.keras.Sequential([
+            tf.keras.layers.Dense(64,activation='relu',input_shape=[len(train_x.keys())]),
+
+            tf.keras.layers.Dense(64,activation='relu'),
+            tf.keras.layers.Dense(1)])
+    optimizer=tf.keras.optimizers.RMSprop(0.001)
+    model.compile(loss='mse',
+                  optimizer=optimizer,
+                  metrics=['mae','mse'])
+    return model
+
+
+
 normed_train=norm(train_x)
 normed_test=norm(test_x)
 model=build_model()
